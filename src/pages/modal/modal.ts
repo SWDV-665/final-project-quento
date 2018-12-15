@@ -16,13 +16,13 @@ import { WorkoutServiceProvider } from '../../providers/workout-service/workout-
 })
 export class ModalPage {
   workout;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: WorkoutServiceProvider, public platform: Platform, public viewCtrl: ViewController) {
-    this.workout = this.navParams.get('workout');
-
+  constructor(public navCtrl: NavController, public params: NavParams, public dataService: WorkoutServiceProvider, public platform: Platform, public viewCtrl: ViewController) {
+    this.workout = this.params.get('workout');
+    console.log("workout name => " + this.workout);
    
   }
   dismiss() {
-      this.navCtrl.dismiss();
+      this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {
