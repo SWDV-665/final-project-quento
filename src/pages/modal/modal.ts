@@ -21,7 +21,7 @@ export class ModalPage {
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public params: NavParams, public dataService: WorkoutServiceProvider, public platform: Platform, public viewCtrl: ViewController, public dialogService: InputDialogServiceProvider) {
     this.workout = this.params.get('workout');
     this.workoutIndex = this.params.get('index');
-    console.log("workout name => " + this.workout);
+    console.log("workout name => " + this.workout.name + " Workout Index => " + this.workoutIndex);
    
   }
 
@@ -29,7 +29,8 @@ export class ModalPage {
       this.viewCtrl.dismiss();
   }
 
-  addExercise(){
+  addExercise(){    
+    console.log("Add Exercise Clicked =>  workout index [" + this.workoutIndex + "]");
     this.dialogService.showExercisePrompt(this.workoutIndex);
   }
 
