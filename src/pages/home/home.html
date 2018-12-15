@@ -5,17 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>{{title}}</h2>
-  <p>
-    Welcome to work route<sup>TM</sup> an app that will help you create your custom work out routine!
-  </p>
-  <p>To begin, click on the [+] symbol to create a work out routine.</p>
-
+  <h1>{{title}}</h1>
+  <div *ngIf="loadWorkouts().length === 0">
+    <h3>
+      Welcome to work route<sup>TM</sup> an app that will help you create your custom work out routine!
+    </h3>
+    <p>To begin, click on the [+] symbol to create a work out routine.</p>
+  </div>
   <ion-fab top right edge>
     <button (click)="addWorkout()" ion-fab mini><ion-icon name="add"></ion-icon></button>    
   </ion-fab>
 
-  <ion-list>  
+  <ion-list *ngIf="loadWorkouts().length !== 0">  
       <ion-list-header>
           <h1>Your Workouts</h1>
       </ion-list-header>
