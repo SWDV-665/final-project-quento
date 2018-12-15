@@ -7,10 +7,12 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ModalPage } from '../pages/modal/modal';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WorkoutServiceProvider } from '../providers/workout-service/workout-service';
+import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { WorkoutServiceProvider } from '../providers/workout-service/workout-ser
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModalPage
   ],
   imports: [
     BrowserModule,
@@ -30,13 +33,15 @@ import { WorkoutServiceProvider } from '../providers/workout-service/workout-ser
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ModalPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WorkoutServiceProvider
+    WorkoutServiceProvider,
+    InputDialogServiceProvider
   ]
 })
 export class AppModule {}
