@@ -5,13 +5,41 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
+  <h2>{{title}}</h2>
   <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
+    Welcome to work route<sup>TM</sup> an app that will help you create your custom work out routine!
   </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <p>To begin, click on the [+] symbol to create a work out routine.</p>
+
+  <ion-fab top right edge>
+    <button (click)="addWorkout()" ion-fab mini><ion-icon name="add"></ion-icon></button>    
+  </ion-fab>
+
+  <ion-list>  
+      <ion-list-header>
+          <h1>Your Workouts</h1>
+      </ion-list-header>
+    <ion-item-sliding *ngFor="let workout of loadWorkouts(); let i = index">
+      <ion-item>  
+          <!-- <ion-thumbnail item-start>
+            <img src="assets/imgs/logo.png">
+          </ion-thumbnail> -->
+          <h2>{{workout.name}}</h2>
+          <h3><strong>Sets:</strong> {{workout.sets}}</h3>          
+          <p><em> {{workout.description}}</em></p>
+          <button (click)="viewWorkout(workout, i)" ion-button clear item-end>View</button>
+      </ion-item>
+      <ion-item-options>
+        <button (click)="editWorkout(workout, i)" ion-button color="primary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button> 
+        <button (click)="removeWorkout(workout, i)" ion-button color="light" icon-start>
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>          
+      </ion-item-options>
+    </ion-item-sliding>
+    
+  </ion-list>
 </ion-content>
