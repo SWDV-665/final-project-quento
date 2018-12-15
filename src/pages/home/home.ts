@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { ModalController, NavParams } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { WorkoutServiceProvider } from '../../providers/workout-service/workout-service';
 import { ModalPage } from '../modal/modal';
 
@@ -22,11 +22,19 @@ export class HomePage {
   }
 
   loadWorkouts(){
-    return this.dataService.workouts;
+    return this.dataService.getWorkout();
   }
 
   removeWorkout(workout, index){
+    // Show item removal message (toast)
+    const toast = this.toastCtrl.create({
+      message: 'Deleting - ' + workout.name + " ...",
+      duration: 3000
+    });
+    toast.present();
 
+    // Use Groceries Provider to remove item
+    this.dataService.removeWorkout(index);
   }
 
   editWorkout(workout, index){
@@ -39,13 +47,12 @@ export class HomePage {
 
   viewWorkout(workout, index){
     console.log("workout view clicked => " + workout.name);
-    // this.openWorkoutModal(workout);
-    this.navCtrl.push(ModalPage);
+    this.openWorkoutModal(workout, index);
+    //this.navCtrl.push(ModalPage);
   }
 
-  openWorkoutModal(workout) {
-    let workoutModal = this.modalCtrl.create(ModalPage, workout);
+  openWorkoutModal(workout, index) {
+    let workoutModal = this.modalCtrl.create(ModalPage, {index, workout});
     workoutModal.present();    
   }
-
 }
