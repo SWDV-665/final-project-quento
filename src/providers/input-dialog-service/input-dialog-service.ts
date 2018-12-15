@@ -19,7 +19,7 @@ export class InputDialogServiceProvider {
   showPrompt(workout?, index?) {
     const prompt = this.alertCtrl.create({
       title: workout ? 'Edit Item' : 'Add Workout',
-      message: workout ? "Please edit a workout" : 'Pleas add a workout',
+      message: workout ? "Please edit a workout." : 'Please add a workout and at least one exercise.',
       inputs: [
         {
           name: 'name',
@@ -29,13 +29,14 @@ export class InputDialogServiceProvider {
         {          
           name: 'sets',          
           placeholder: 'Sets',                             
-          value: workout ? workout.set : null,          
-        },
+          value: workout ? workout.sets : null,          
+        }
+        ,
         {          
           name: 'description',          
           placeholder: 'Description',                             
           value: workout ? workout.description : null,          
-        },            
+        }
       ],           
       buttons: [
         {
@@ -66,7 +67,7 @@ export class InputDialogServiceProvider {
   showExercisePrompt(workoutIndex?, exercise?, index?) {
     const prompt = this.alertCtrl.create({
       title: exercise ? 'Edit exercise' : 'Add Exercise',
-      message: exercise ? "Please edit an exercise" : 'Please add a exercise',
+      message: exercise ? "Please edit an exercise." : 'Please add an exercise.',
       inputs: [
         {
           name: 'name',
@@ -89,7 +90,7 @@ export class InputDialogServiceProvider {
         {
           text: 'Save',
           handler: exercise => {
-            console.log('Saved clicked', exercise);    
+            console.log('Saved clicked', exercise, "index is " + workoutIndex, " The workout is => " +  this.dataService.workouts[workoutIndex]);    
             if (index !== undefined){
               console.log("is this correct rep# " + exercise.reps)
               // Edit item to array
@@ -97,6 +98,9 @@ export class InputDialogServiceProvider {
               this.dataService.workouts[workoutIndex].editExercise(exercise,index);
             } else {
               // Add item to array              
+              //this.dataService.workouts[workoutIndex].addExercise(exercise);              
+              console.log("Save new exercise in this workout '" + this.dataService.workouts[workoutIndex].name + "' workoutIndex => "+ workoutIndex)
+              console.log("Exercise to save =>" + exercise.name + " reps => " + exercise.reps);
               this.dataService.workouts[workoutIndex].addExercise(exercise);
             }       
             
