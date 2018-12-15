@@ -26,7 +26,7 @@
             <h2>{{workout.sets}} sets</h2>
             <p>{{workout.description}}</p>          
         </ion-list-header>
-        <ion-item-sliding *ngFor="let exercise of workout['exercises']">
+        <ion-item-sliding *ngFor="let exercise of workout['exercises']; let i = index">
             <ion-item>  
               <ion-grid>
                 <ion-row>
@@ -40,11 +40,11 @@
               </ion-grid>                              
             </ion-item>
             <ion-item-options>
-              <button (click)="editWorkout(exercise, i)" ion-button color="primary" icon-start>
+              <button (click)="editExercise(exercise, i)" ion-button color="primary" icon-start>
                 <ion-icon name="create"></ion-icon>
                 Edit
               </button> 
-              <button (click)="removeWorkout(exercise, i)" ion-button color="light" icon-start>
+              <button (click)="removeExercise(exercise, i)" ion-button color="light" icon-start>
                 <ion-icon name="trash"></ion-icon>
                 Delete
               </button>          
