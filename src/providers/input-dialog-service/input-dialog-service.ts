@@ -30,7 +30,12 @@ export class InputDialogServiceProvider {
           name: 'sets',          
           placeholder: 'Sets',                             
           value: workout ? workout.set : null,          
-        }        
+        },
+        {          
+          name: 'description',          
+          placeholder: 'Description',                             
+          value: workout ? workout.description : null,          
+        },            
       ],           
       buttons: [
         {
@@ -41,14 +46,58 @@ export class InputDialogServiceProvider {
         },
         {
           text: 'Save',
-          handler: item => {
-            console.log('Saved clicked', item);    
+          handler: workout => {
+            console.log('Saved clicked', workout);    
             if (index !== undefined){
               // Edit item to array
               this.dataService.editWorkout(workout,index);
             } else {
               // Add item to array
               this.dataService.addWorkout(workout);
+            }       
+            
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  showExercisePrompt(workoutIndex?, exercise?, index?) {
+    const prompt = this.alertCtrl.create({
+      title: exercise ? 'Edit exercise' : 'Add Exercise',
+      message: exercise ? "Please edit an exercise" : 'Please add a exercise',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name',
+          value: exercise ? exercise.name : null
+        },
+        {          
+          name: 'reps',          
+          placeholder: 'Reps',                             
+          value: exercise ? exercise.reps : null,          
+        },                  
+      ],           
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: exercise => {
+            console.log('Saved clicked', exercise);    
+            if (index !== undefined){
+              console.log("is this correct rep# " + exercise.reps)
+              // Edit item to array
+             //this.dataService.editExercise(workout,index);
+              this.dataService.workouts[workoutIndex].editExercise(exercise,index);
+            } else {
+              // Add item to array              
+              this.dataService.workouts[workoutIndex].addExercise(exercise);
             }       
             
           }
