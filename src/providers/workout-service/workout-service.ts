@@ -10,61 +10,39 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class WorkoutServiceProvider {
 
-  
+  workouts = [];
+  exercises = [];
 
-  workouts : Array<{
-      name: string,
-      sets: number,
-      description: string,
-      exercises: Array<{
-          name: string,
-          reps: number
-        }>      
-    }>;
+  // workouts : Array<{
+  //     name: string,
+  //     sets: number,
+  //     description?: string | null,
+  //     exercises?: Array<{
+  //         name: string,
+  //         reps: number
+  //       }>  | null    
+  //   }>;
 
-  exercises: Array<{
-      name:string,
-      desc: string
-    }>;
+  // exercises: Array<{
+  //     name:string,
+  //     desc: string
+  //   }>;
 
   constructor() {
     console.log('Hello WorkoutServiceProvider Provider');
     
     this.workouts = [
-      {
-        name: "Work Out 1",
-        sets: 5,
-        description: "1st work out created.",
-        exercises: [
-          {
-            name: "Push ups",
-            reps: 5
-          },
-          {
-            name: "Sit ups",
-            reps: 3
-          },
-          {
-            name: "Jumping Jacks",
-            reps: 8
-          }
+      new WorkoutModel("Work Out 1",5,"1st work out created.",[
+          { name: "Push ups", reps: 5 },
+          {name: "Sit ups", reps: 3 },
+          { name: "Jumping Jacks", reps: 8 }
         ]      
-      },
-      {
-        name: "Work Out 2",
-        sets: 2,
-        description: "This is the second work out. I think it will be more vigourous.",
-        exercises: [
-          {
-            name: "Squats",
-            reps: 3
-          },
-          {
-            name: "Crunches",
-            reps: 5
-          }
+      ),
+      new WorkoutModel("Work Out 2", 2, "This is the second work out. I think it will be more vigourous.",  [
+          { name: "Squats", reps: 3 },
+          { name: "Crunches", reps: 5 }
         ]      
-      }
+      )     
     ];
 
     this.exercises = [
@@ -97,5 +75,30 @@ export class WorkoutServiceProvider {
 
   editWorkout(workout, index){
     this.workouts[index] = workout;
+  }
+}
+
+
+ 
+export class WorkoutModel {
+  constructor(public name: string, public sets: number, public description: string, public exercises: any[]){
+
+  }
+
+  addExercise(exercise){
+    this.exercises.push({
+      name: exercise.name,
+      reps: exercise.reps
+    });
+  }
+
+  removeExercise(exercise, index){
+    this.exercises.splice(index, 1);
+  }
+
+  editExercise(exercise, index){
+    console.log("Current exercise: " + this.exercises[index].name + " #" +  this.exercises[index].reps);
+    console.log("Save this exercise: " + exercise.name + " #" + exercise.reps);
+    this.exercises[index] = exercise;
   }
 }
