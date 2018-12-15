@@ -8,20 +8,16 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 @Injectable()
+
+
 export class WorkoutServiceProvider {
 
-  workouts = [];
-  exercises = [];
+  //workouts = [];
+  
+  workouts : WorkoutModel[];
+  exercisesList = [];
 
-  // workouts : Array<{
-  //     name: string,
-  //     sets: number,
-  //     description?: string | null,
-  //     exercises?: Array<{
-  //         name: string,
-  //         reps: number
-  //       }>  | null    
-  //   }>;
+  
 
   // exercises: Array<{
   //     name:string,
@@ -31,10 +27,10 @@ export class WorkoutServiceProvider {
   constructor() {
     console.log('Hello WorkoutServiceProvider Provider');
     
-    this.workouts = [
+     this.workouts = [
       new WorkoutModel("Work Out 1",5,"1st work out created.",[
           { name: "Push ups", reps: 5 },
-          {name: "Sit ups", reps: 3 },
+          { name: "Sit ups", reps: 3 },
           { name: "Jumping Jacks", reps: 8 }
         ]      
       ),
@@ -45,7 +41,7 @@ export class WorkoutServiceProvider {
       )     
     ];
 
-    this.exercises = [
+    this.exercisesList = [
       {
         name: "Push Ups",
         desc: "Place your hands on the floor so they’re slightly outside shoulder-width. Spread your fingers slightly out and have them pointed forward. Raise up onto your toes so that all of your body weight is on your hands and your feet.Bend your elbows and lower your chest down toward the floor. Once your elbows bend slightly beyond 90 degrees, push off the floor and extend them so that you return to starting position."
@@ -70,7 +66,13 @@ export class WorkoutServiceProvider {
   }
 
   addWorkout(workout){
-    this.workouts.push(workout);
+    // create new WorkoutModel based on data entered    
+    workout.exercises = [];
+    var workoutObject = new WorkoutModel(workout.name, workout.sets, workout.description, workout.exercises);
+
+    this.workouts.push(workoutObject);
+    console.log("Record to add " + workout);
+    console.log("Show workouts " + this.workouts);
   }
 
   editWorkout(workout, index){
@@ -78,18 +80,32 @@ export class WorkoutServiceProvider {
   }
 }
 
+export interface IWorkout {
+  name: string,
+  sets: number,
+  description?: string,
+  exercises?: [{
+      name: string,
+      reps: number
+  }]   
 
+}
  
-export class WorkoutModel {
-  constructor(public name: string, public sets: number, public description: string, public exercises: any[]){
+export class WorkoutModel implements IWorkout {
+  //constructor(public name: string, public sets: number, public description: string, public exercises?: [{name: string, reps: number}]){
+  constructor(public name: string, public sets, public description?: string, public exercises?: [{name: string, reps: number}]) {
 
   }
 
   addExercise(exercise){
+    console.log("New exercise to save: " + exercise.name + " #" +  exercise.reps);    
+    console.log("current WorkoutModel => " + this.name + " | " + this.sets + " | " + this.description + " | " + this.exercises);
+    
     this.exercises.push({
       name: exercise.name,
       reps: exercise.reps
     });
+    //this.exercises.push(exercise);
   }
 
   removeExercise(exercise, index){
