@@ -23,7 +23,7 @@ export class ModalPage {
     this.workout = this.params.get('workout');
     this.workoutIndex = this.params.get('index');
     console.log("workout name => " + this.workout.name + " Workout Index => " + this.workoutIndex);
-   
+    console.log("Exercises =>" + this.workout.exercises[0]._id);
   }
 
   dismiss() {
