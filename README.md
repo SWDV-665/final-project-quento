@@ -1,5 +1,11 @@
 # Final App
 
+## Deliverables
+* Source Code.
+* Screenshots in /screenshots folder.
+* Cloud server via Heroku: 
+  https://workout-server.herokuapp.com/api/workouts
+
 ## Requirements
 
 ### App Type
