@@ -27,19 +27,20 @@ export class WorkoutServiceProvider {
   constructor() {
     console.log('Hello WorkoutServiceProvider Provider');
     
-     this.workouts = [
-      new WorkoutModel("Work Out 1",5,"1st work out created.",[
-          { name: "Push ups", reps: 5 },
-          { name: "Sit ups", reps: 3 },
-          { name: "Jumping Jacks", reps: 8 }
-        ]      
-      ),
-      new WorkoutModel("Work Out 2", 2, "This is the second work out. I think it will be more vigourous.",  [
-          { name: "Squats", reps: 3 },
-          { name: "Crunches", reps: 5 }
-        ]      
-      )     
-    ];
+     this.workouts = [];
+     // No need to create default data.
+      // new WorkoutModel("Work Out 1",5,"1st work out created.",[
+      //     { name: "Push ups", reps: 5 },
+      //     { name: "Sit ups", reps: 3 },
+      //     { name: "Jumping Jacks", reps: 8 }
+      //   ]      
+      // ),
+      // new WorkoutModel("Work Out 2", 2, "This is the second work out. I think it will be more vigourous.",  [
+      //     { name: "Squats", reps: 3 },
+      //     { name: "Crunches", reps: 5 }
+      //   ]      
+      // )     
+    
 
     this.exercisesList = [
       {
