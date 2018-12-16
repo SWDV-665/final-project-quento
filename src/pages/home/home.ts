@@ -23,7 +23,7 @@ export class HomePage {
   }
 
   loadWorkouts(){
-    return this.dataService.getWorkout();
+    return this.dataService.getWorkouts();
   }
 
   removeWorkout(workout, index){
