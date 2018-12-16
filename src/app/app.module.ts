@@ -13,6 +13,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WorkoutServiceProvider } from '../providers/workout-service/workout-service';
 import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { InputDialogServiceProvider } from '../providers/input-dialog-service/in
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -41,7 +44,8 @@ import { InputDialogServiceProvider } from '../providers/input-dialog-service/in
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WorkoutServiceProvider,
-    InputDialogServiceProvider
+    InputDialogServiceProvider,
+    SocialSharing
   ]
 })
 export class AppModule {}
