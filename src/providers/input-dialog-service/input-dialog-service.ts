@@ -100,7 +100,7 @@ export class InputDialogServiceProvider {
               //this.dataService.workouts[workoutIndex].addExercise(exercise);              
               console.log("Save new exercise in this workout '" + this.dataService.workouts[workoutIndex].name + "' workoutIndex => "+ workoutIndex)
               console.log("Exercise to save =>" + exercise.name + " reps => " + exercise.reps);
-              this.dataService.workouts[workoutIndex].addExercise(exercise);
+              this.dataService.workouts[workoutIndex].addExercise(exercise);              
             }       
             
           }
