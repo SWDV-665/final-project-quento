@@ -16,7 +16,7 @@ export class InputDialogServiceProvider {
     console.log('Hello InputDialogServiceProvider Provider');
   }
 
-  showPrompt(workout?, index?) {
+  showPrompt(workout?, index?, id?) {
     const prompt = this.alertCtrl.create({
       title: workout ? 'Edit Item' : 'Add Workout',
       message: workout ? "Please edit a workout." : 'Please add a workout and at least one exercise.',
@@ -30,8 +30,7 @@ export class InputDialogServiceProvider {
           name: 'sets',          
           placeholder: 'Sets',                             
           value: workout ? workout.sets : null,          
-        }
-        ,
+        },
         {          
           name: 'description',          
           placeholder: 'Description',                             
@@ -51,7 +50,7 @@ export class InputDialogServiceProvider {
             console.log('Saved clicked', workout);    
             if (index !== undefined){
               // Edit item to array
-              this.dataService.editWorkout(workout,index);
+              this.dataService.editWorkout(workout,id);
             } else {
               // Add item to array
               this.dataService.addWorkout(workout);

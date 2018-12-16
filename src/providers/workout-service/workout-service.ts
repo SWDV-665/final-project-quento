@@ -1,6 +1,8 @@
-// import { HttpClient } from '@angular/common/http';
+ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs/Observable';
+import { map, catchError } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 /*
   Generated class for the WorkoutServiceProvider provider.
 
@@ -8,40 +10,27 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 @Injectable()
-
-
 export class WorkoutServiceProvider {
 
-  //workouts = [];
-  
-  workouts : WorkoutModel[];
+  workouts : any = [];
   exercisesList = [];
 
-  
+  // Used to check if a change has occurred.
+  dataChanged$: Observable<boolean>;
 
-  // exercises: Array<{
-  //     name:string,
-  //     desc: string
-  //   }>;
+  private dataChangeSubject: Subject<boolean>;
 
-  constructor() {
+  baseURL = "http://localhost:8080";
+
+
+  constructor(public http: HttpClient) {
     console.log('Hello WorkoutServiceProvider Provider');
     
-     this.workouts = [];
-     // No need to create default data.
-      // new WorkoutModel("Work Out 1",5,"1st work out created.",[
-      //     { name: "Push ups", reps: 5 },
-      //     { name: "Sit ups", reps: 3 },
-      //     { name: "Jumping Jacks", reps: 8 }
-      //   ]      
-      // ),
-      // new WorkoutModel("Work Out 2", 2, "This is the second work out. I think it will be more vigourous.",  [
-      //     { name: "Squats", reps: 3 },
-      //     { name: "Crunches", reps: 5 }
-      //   ]      
-      // )     
-    
+    this.dataChangeSubject = new Subject<boolean>();
+    this.dataChanged$ = this.dataChangeSubject.asObservable();
 
+    this.workouts = [];
+     
     this.exercisesList = [
       {
         name: "Push Ups",
@@ -58,12 +47,38 @@ export class WorkoutServiceProvider {
     ];
   }
 
-  getWorkout(){
-    return this.workouts;
+  getWorkouts(): Observable<object[]> {
+    return this.http.get(this.baseURL + '/api/workouts').pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
   }
 
-  removeWorkout(index){
-    this.workouts.splice(index, 1);
+  private extractData(res: Response){
+    let body = res;
+    return body || {};
+  }
+
+  private handleError(error: Response | any) {
+    let errMsg: string;
+
+    if (error instanceof Response) {
+      const err = error || '';
+      errMsg = error.status + " - " + error.statusText + " " + err;      
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
+
+  removeWorkout(id){
+    //this.workouts.splice(index, 1);
+    this.http.delete(this.baseURL + "/api/workouts/" + id).subscribe(res => {
+      this.workouts = res;
+      // Trigger data change flag
+      this.dataChangeSubject.next(true);
+    });
   }
 
   addWorkout(workout){
@@ -71,13 +86,23 @@ export class WorkoutServiceProvider {
     workout.exercises = [];
     var workoutObject = new WorkoutModel(workout.name, workout.sets, workout.description, workout.exercises);
 
-    this.workouts.push(workoutObject);
+    //this.workouts.push(workoutObject);
+    this.http.post(this.baseURL + "/api/workouts/", workoutObject).subscribe(res => {
+      this.workouts = res;
+      // Trigger data change flag
+      this.dataChangeSubject.next(true);
+    });
     console.log("Record to add " + workout);
     console.log("Show workouts " + this.workouts);
   }
 
-  editWorkout(workout, index){
-    this.workouts[index] = workout;
+  editWorkout(workout, workoutId){
+    //this.workouts[index] = workout;
+    
+    this.http.put(this.baseURL + "/api/workouts/" + workoutId, workout).subscribe(res => {
+      this.workouts = res;
+      this.dataChangeSubject.next(true);
+    });
   }
 }
 
