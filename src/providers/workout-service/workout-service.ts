@@ -19,8 +19,10 @@ export class WorkoutServiceProvider {
   dataChanged$: Observable<boolean>;
 
   private dataChangeSubject: Subject<boolean>;
-
-  baseURL = "http://localhost:8080";
+  // Local
+  //baseURL = "http://localhost:8080";
+  // Cloud server
+  baseURL = "https://workout-server.herokuapp.com";
 
 
   constructor(public http: HttpClient) {
