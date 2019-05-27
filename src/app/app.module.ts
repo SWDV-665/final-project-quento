@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
@@ -35,7 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule,    
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -56,7 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WorkoutServiceProvider,
     InputDialogServiceProvider,
-    SocialSharing
+    SocialSharing,
+    GooglePlus
   ]
 })
 export class AppModule {}

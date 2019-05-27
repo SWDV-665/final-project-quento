@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { WelcomePage } from '../../pages/welcome/welcome';
 import { SignupPage } from '../../pages/signup/signup';
@@ -18,7 +19,7 @@ import { SignupPage } from '../../pages/signup/signup';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public googlePlus: GooglePlus) {
   }
 
   ionViewDidLoad() {
@@ -28,6 +29,13 @@ export class LoginPage {
   login(){
     this.navCtrl.push(WelcomePage);
   }
+
+  loginGoogle(){
+    this.googlePlus.login({})
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
+  }
+
   signup(){
     this.navCtrl.push(SignupPage);
   }
