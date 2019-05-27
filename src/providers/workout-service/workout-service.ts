@@ -20,9 +20,9 @@ export class WorkoutServiceProvider {
 
   private dataChangeSubject: Subject<boolean>;
   // Local
-  //baseURL = "http://localhost:8080";
+  baseURL = "http://localhost:8080";
   // Cloud server
-  baseURL = "https://workout-server.herokuapp.com";
+  //baseURL = "https://workout-server.herokuapp.com";
 
 
   constructor(public http: HttpClient) {
