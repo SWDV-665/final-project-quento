@@ -63,7 +63,7 @@ export class InputDialogServiceProvider {
     prompt.present();
   }
 
-  showExercisePrompt(workoutIndex?, exercise?, index?) {
+  showExercisePrompt(workout?, exercise?, index? ) {    
     const prompt = this.alertCtrl.create({
       title: exercise ? 'Edit exercise' : 'Add Exercise',
       message: exercise ? "Please edit an exercise." : 'Please add an exercise.',
@@ -89,18 +89,18 @@ export class InputDialogServiceProvider {
         {
           text: 'Save',
           handler: exercise => {
-            console.log('Saved clicked', exercise, "index is " + workoutIndex, " The workout is => " +  this.dataService.workouts[workoutIndex]);    
+            console.log('Saved clicked', exercise, " The workout is => " +  JSON.stringify(workout));    
             if (index !== undefined){
               console.log("is this correct rep# " + exercise.reps)
               // Edit item to array
              //this.dataService.editExercise(workout,index);
-              this.dataService.workouts[workoutIndex].editExercise(exercise,index);
+              this.dataService.editExercise(workout,exercise,index);
             } else {
               // Add item to array              
               //this.dataService.workouts[workoutIndex].addExercise(exercise);              
-              console.log("Save new exercise in this workout '" + this.dataService.workouts[workoutIndex].name + "' workoutIndex => "+ workoutIndex)
+              console.log("Save new exercise in this workout '" + workout.name + "'");
               console.log("Exercise to save =>" + exercise.name + " reps => " + exercise.reps);
-              this.dataService.workouts[workoutIndex].addExercise(exercise);              
+              this.dataService.addExercise(workout, exercise);              
             }       
             
           }
