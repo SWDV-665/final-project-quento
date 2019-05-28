@@ -20,9 +20,9 @@ export class WorkoutServiceProvider {
 
   private dataChangeSubject: Subject<boolean>;
   // Local
-  baseURL = "http://localhost:8080";
+  //baseURL = "http://localhost:8080";
   // Cloud server
-  //baseURL = "https://workout-server.herokuapp.com";
+  baseURL = "https://workout-server.herokuapp.com";
 
 
   constructor(public http: HttpClient) {
@@ -104,7 +104,37 @@ export class WorkoutServiceProvider {
     this.http.put(this.baseURL + "/api/workouts/" + workoutId, workout).subscribe(res => {
       this.workouts = res;
       this.dataChangeSubject.next(true);
+      console.log("Workout updated ...")
     });
+  }
+
+  // Manipulate the exercises
+  addExercise(workout, exercise){
+    console.log("New exercise to save: " + exercise.name + " #" +  exercise.reps);    
+    console.log("current WorkoutModel =>", JSON.stringify(workout) );
+    
+    workout.exercises.push({
+      name: exercise.name,
+      reps: exercise.reps
+    });
+    // Execute workout update to save changes
+    this.editWorkout(workout,workout._id)    
+  }
+
+  removeExercise(workout, exercise, index){
+    console.log("Before remove ", JSON.stringify(workout));
+    workout.exercises.splice(index, 1);
+    // Execute workout update to update exercises
+    this.editWorkout(workout,workout._id)   
+    console.log("Workout _id", workout._id, "\nworkout", JSON.stringify(workout));
+  }
+
+  editExercise(workout,exercise, index){
+    //console.log("Current exercise: " + this.workouts[workoutIndex].exercises[index].name + " #" +  this.workouts[workoutIndex].exercises[index].reps);
+    console.log("Save this exercise: " + exercise.name + " #" + exercise.reps);
+    //this.workouts[workoutIndex].exercises[index] = exercise;
+    console.log("Workout" + JSON.stringify(workout) + "| Exercise Index: " + index + "| Exercise:" + JSON.stringify(exercise) + "Workouts: " + JSON.stringify(this.workouts) );
+
   }
 }
 
@@ -125,24 +155,5 @@ export class WorkoutModel implements IWorkout {
 
   }
 
-  addExercise(exercise){
-    console.log("New exercise to save: " + exercise.name + " #" +  exercise.reps);    
-    console.log("current WorkoutModel => " + this.name + " | " + this.sets + " | " + this.description + " | " + this.exercises);
-    
-    this.exercises.push({
-      name: exercise.name,
-      reps: exercise.reps
-    });
-    //this.exercises.push(exercise);
-  }
-
-  removeExercise(exercise, index){
-    this.exercises.splice(index, 1);
-  }
-
-  editExercise(exercise, index){
-    console.log("Current exercise: " + this.exercises[index].name + " #" +  this.exercises[index].reps);
-    console.log("Save this exercise: " + exercise.name + " #" + exercise.reps);
-    this.exercises[index] = exercise;
-  }
+  
 }
