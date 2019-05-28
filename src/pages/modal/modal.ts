@@ -22,8 +22,7 @@ export class ModalPage {
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public params: NavParams, public dataService: WorkoutServiceProvider, public platform: Platform, public viewCtrl: ViewController, public dialogService: InputDialogServiceProvider, public socialSharing: SocialSharing) {
     this.workout = this.params.get('workout');
     this.workoutIndex = this.params.get('index');
-    console.log("workout name => " + this.workout.name + " Workout Index => " + this.workoutIndex);
-    console.log("Exercises =>" + this.workout.exercises[0]._id);
+    console.log("workout => " + JSON.stringify(this.workout) + " Workout Index => " + this.workoutIndex);    
   }
 
   dismiss() {
@@ -32,13 +31,13 @@ export class ModalPage {
 
   addExercise(){    
     console.log("Add Exercise Clicked =>  workout index [" + this.workoutIndex + "]");
-    this.dialogService.showExercisePrompt(this.workoutIndex);
+    this.dialogService.showExercisePrompt(this.workout);
   }
 
   editExercise(exercise, index){
     console.log("Edit  " + exercise.name + " index " + index + " workout index " + this.workoutIndex );
     //this.dataService.workouts[this.workoutIndex].editExercise(exercise,index);
-    this.dialogService.showExercisePrompt(this.workoutIndex,exercise, index);
+    this.dialogService.showExercisePrompt(this.workout,exercise, index);
   }
 
   removeExercise(exercise, index){
@@ -53,7 +52,7 @@ export class ModalPage {
     toast.present();
     
     // Use Groceries Provider to remove item
-    this.dataService.workouts[this.workoutIndex].removeExercise(exercise, index);
+    this.dataService.removeExercise(this.workout,exercise, index);
   }
 
   ionViewDidLoad() {
