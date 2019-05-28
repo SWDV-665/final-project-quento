@@ -27,7 +27,7 @@
     "@ionic-native/status-bar": "~4.17.0",
     "@ionic/pro": "2.0.3",
     "@ionic/storage": "2.2.0",
-    "@ionic/app-scripts": "3.2.1",    
+    "@ionic/app-scripts": "3.2.1",
     "@types/cordova-plugin-device": "^1.1.5",
     "@types/cordova-plugin-statusbar": "^2.2.2",
     "@types/cordova-plugin-x-socialsharing": "^5.1.1",
@@ -47,9 +47,7 @@
     "typescript": "~2.6.2",
     "zone.js": "0.8.26"
   },
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "description": "A workout routine organizer.",
   "cordova": {
     "plugins": {
