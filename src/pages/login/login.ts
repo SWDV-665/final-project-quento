@@ -4,6 +4,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 
 import { WelcomePage } from '../../pages/welcome/welcome';
 import { SignupPage } from '../../pages/signup/signup';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,7 +28,8 @@ export class LoginPage {
   }
 
   login(){
-    this.navCtrl.push(WelcomePage);
+    // Assume they signed in.
+    this.navCtrl.push(HomePage);
   }
 
   loginGoogle(){
