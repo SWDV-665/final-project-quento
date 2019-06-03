@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 
-import { WelcomePage } from '../../pages/welcome/welcome';
 import { SignupPage } from '../../pages/signup/signup';
 import { HomePage } from '../home/home';
 
@@ -34,8 +33,13 @@ export class LoginPage {
 
   loginGoogle(){
     this.googlePlus.login({})
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+    .then(res => {
+      console.log(res)
+      this.navCtrl.setRoot(HomePage);
+    })
+    .catch(err => {
+      console.error(err)    
+    });
   }
 
   signup(){
