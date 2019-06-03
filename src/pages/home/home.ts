@@ -5,8 +5,11 @@ import { AlertController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { WorkoutServiceProvider } from '../../providers/workout-service/workout-service';
 import { InputDialogServiceProvider } from '../../providers/input-dialog-service/input-dialog-service';
-import { ModalPage } from '../modal/modal';
+
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { GooglePlus } from '@ionic-native/google-plus';
+
+import { ModalPage } from '../modal/modal';
 
 @Component({
   selector: 'page-home',
@@ -17,8 +20,9 @@ export class HomePage {
   title : string;
   workouts = [];
   errorMessage: string;
+  user_email: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: WorkoutServiceProvider,public modalCtrl: ModalController, public dialogService: InputDialogServiceProvider, public socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: WorkoutServiceProvider,public modalCtrl: ModalController, public dialogService: InputDialogServiceProvider, public socialSharing: SocialSharing, private googlePlus: GooglePlus) {
     this.title = "Workout Route";
 
     // Subscribing to observable to know when data changes.
@@ -81,5 +85,17 @@ export class HomePage {
   openWorkoutModal(workout, index) {
     let workoutModal = this.modalCtrl.create(ModalPage, {index, workout});
     workoutModal.present();    
+  }
+
+  logOut(){
+    this.googlePlus.logout()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.setRoot("LoginPage"); 
+      this.navCtrl.push("LoginPage");
+    })
+    .catch(err => {
+      console.error(err);
+    });
   }
 }
