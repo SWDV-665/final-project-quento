@@ -5,6 +5,8 @@
 </ion-header>
 
 <ion-content padding>
+  <p>You are logged in as {{user_email}}</p>
+  <button ion-button full (click)="logOut()">Log Out</button>
   <h1>{{title}}</h1>
   <div *ngIf="workouts.length === 0">
     <h3>
